@@ -12,12 +12,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        /*findViewById<PieChart>(R.id.pie).apply {
+        findViewById<PieChart>(R.id.pie).apply {
             setData(fetchData())
             setClickListener {
                 Log.e("Clicked on category - ", it)
             }
-        }*/
+        }
         findViewById<LinearChart>(R.id.linear).apply {
             setData(fetchData())
         }
