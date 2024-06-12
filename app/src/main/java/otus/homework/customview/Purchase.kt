@@ -5,5 +5,5 @@ data class Purchase(
     val name: String,
     val price: Long,
     val category: String,
-    val time: Long
+    val dayOfMonth: Int
 )

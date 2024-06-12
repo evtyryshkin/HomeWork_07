@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONArray
+import java.util.Calendar
 
 
 class MainActivity : AppCompatActivity() {
@@ -11,11 +12,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<PieChart>(R.id.pie).apply {
+        /*findViewById<PieChart>(R.id.pie).apply {
             setData(fetchData())
             setClickListener {
                 Log.e("Clicked on category - ", it)
             }
+        }*/
+        findViewById<LinearChart>(R.id.linear).apply {
+            setData(fetchData())
         }
     }
 
@@ -25,12 +29,16 @@ class MainActivity : AppCompatActivity() {
         )
         return (0 until jsonArray.length()).map {
             val jsonObj = jsonArray.getJSONObject(it)
+            val dayOfMonth = Calendar.getInstance().run {
+                timeInMillis = jsonObj.optLong("time") * 1000
+                get(Calendar.DAY_OF_MONTH)
+            }
             Purchase(
                 jsonObj.optLong("id"),
                 jsonObj.optString("name"),
                 jsonObj.optLong("amount"),
                 jsonObj.optString("category"),
-                jsonObj.optLong("time")
+                dayOfMonth
             )
         }
     }
